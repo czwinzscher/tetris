@@ -10,14 +10,19 @@ int main() {
     // init ncurses
     initscr();
 
-    // while (!tg.game_over()) {
+    bool game_running = true;
 
-    // }
+    while (game_running) {
+        switch (getch()) {
+        case 'q': game_running = false; break;
+        default: break;
+        }
+    }
 
     // end ncurses
     endwin();
 
-    std::cout << "you finished the game with" << tg.score() << "points\n";
+    std::cout << "you finished the game with " << tg.score() << " points\n";
 
     return 0;
 }
