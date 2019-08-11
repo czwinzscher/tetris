@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -O3 -Wall
 
 BIN = tetris
-OBJ = main.o
+OBJ = main.o tetris.o
 
 all: $(OBJ)
 	$(CC) -o $(BIN) $(OBJ) $(CFLAGS)
