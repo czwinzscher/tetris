@@ -18,6 +18,8 @@ class TetrisGame {
 public:
     TetrisGame(int rows, int cols);
 
+    int score();
+
     void next_state();
     bool game_over() const;
 
