@@ -1,6 +1,7 @@
 #ifndef TETRIS_HPP
 #define TETRIS_HPP
 
+#include <algorithm>
 #include <array>
 #include <random>
 
@@ -8,7 +9,8 @@
 #define FIELD_WIDTH 10
 #define NUM_TETROMINOS 7
 #define NUM_ORIENTATIONS 4
-#define NUM_CELLS 4  // number of cells per tetromino
+#define NUM_CELLS_TETROMINO 4
+#define NUM_CELLS_FIELD FIELD_HEIGHT* FIELD_WIDTH
 
 #define TET_I 0
 #define TET_O 1
@@ -19,9 +21,10 @@
 #define TET_L 6
 #define TET_EMPTY 7
 
-using location_t = std::array<std::pair<int, int>, NUM_CELLS>;
+using location_t = std::array<std::pair<int, int>, NUM_CELLS_TETROMINO>;
 using orientations_t =
     std::array<std::array<location_t, NUM_ORIENTATIONS>, NUM_TETROMINOS>;
+using playfield_t = std::array<int, NUM_CELLS_FIELD>;
 
 enum class Move {
     MOVE_LEFT,
@@ -102,12 +105,13 @@ private:
     Piece next_piece();
     bool game_over() const;
     bool piece_fits() const;
-    void rotate_if_possible(const int& direction);
-    void move_if_possible(const int& direction);
+    void rotate_if_possible(int direction);
+    void move_if_possible(int direction);
 
+    playfield_t playfield;
     Piece cur_piece;
     int cur_score;
-    std::mt19937 mt;
+    std::mt19937 mt; // random number generator
 };
 
 #endif
