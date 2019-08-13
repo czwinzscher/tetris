@@ -61,6 +61,17 @@ int TetrisGame::piece_at(int line, int col) const {
     return playfield.at(line).at(col);
 }
 
+location_t TetrisGame::new_loc(int diff_lines, int diff_cols) const {
+    location_t new_loc = cur_piece.location;
+    for (auto& [l, c] : new_loc) {
+        // make line one higher
+        l += diff_lines;
+        c += diff_cols;
+    }
+
+    return new_loc;
+}
+
 bool TetrisGame::is_free(const location_t& l) const {
     for (const auto& [a, b] : l) {
         if (same_piece(cur_piece.location, {a, b})) {
@@ -80,24 +91,20 @@ bool TetrisGame::is_free(const location_t& l) const {
 }
 
 bool TetrisGame::falldown() {
-    location_t new_loc = cur_piece.location;
-    for (auto& [a, b] : new_loc) {
-        // make line one higher
-        a++;
-    }
+    location_t nl = new_loc(1, 0);
 
-    if (is_free(new_loc)) {
+    if (is_free(nl)) {
         // set old positions to empty
         for (const auto& [a, b] : cur_piece.location) {
             playfield.at(a).at(b) = TET_EMPTY;
         }
 
         // set new_positions
-        for (const auto& [a, b] : new_loc) {
+        for (const auto& [a, b] : nl) {
             playfield.at(a).at(b) = cur_piece.tet_type;
         }
 
-        cur_piece.location = new_loc;
+        cur_piece.location = nl;
 
         return true;
     }
@@ -126,13 +133,9 @@ bool TetrisGame::game_over() const {
         return false;
     }
 
-    location_t new_loc = cur_piece.location;
-    for (auto& [a, b] : new_loc) {
-        // make line one higher
-        a++;
-    }
+    location_t nl = new_loc(1, 0);
 
-    if (is_free(new_loc)) {
+    if (is_free(nl)) {
         return false;
     }
 
