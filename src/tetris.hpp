@@ -64,10 +64,11 @@ private:
     bool is_line_full(size_t line) const;
     void clear_single_line(size_t line);
 
-    int ticks_till_falldown;
     std::array<std::array<int, FIELD_WIDTH>, FIELD_HEIGHT> playfield;
     Piece cur_piece;
     int cur_level;
+    int ticks_till_falldown;
+    int total_lines_cleared;
     int cur_score;
     std::mt19937 mt; // random number generator
 };
