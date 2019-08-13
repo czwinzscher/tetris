@@ -111,6 +111,7 @@ private:
     bool falldown();
     void rotate_if_possible(int direction);
     void move_if_possible(int direction);
+    void update_playfield(const location_t& nloc);
 
     int ticks_till_falldown;
     playfield_t playfield;

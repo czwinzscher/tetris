@@ -90,21 +90,24 @@ bool TetrisGame::is_free(const location_t& l) const {
     return true;
 }
 
+void TetrisGame::update_playfield(const location_t& nloc) {
+    for (const auto& [a, b] : cur_piece.location) {
+        playfield.at(a).at(b) = TET_EMPTY;
+    }
+
+    // set new_positions
+    for (const auto& [a, b] : nloc) {
+        playfield.at(a).at(b) = cur_piece.tet_type;
+    }
+
+    cur_piece.location = nloc;
+}
+
 bool TetrisGame::falldown() {
-    location_t nl = new_loc(1, 0);
+    location_t nloc = new_loc(1, 0);
 
-    if (is_free(nl)) {
-        // set old positions to empty
-        for (const auto& [a, b] : cur_piece.location) {
-            playfield.at(a).at(b) = TET_EMPTY;
-        }
-
-        // set new_positions
-        for (const auto& [a, b] : nl) {
-            playfield.at(a).at(b) = cur_piece.tet_type;
-        }
-
-        cur_piece.location = nl;
+    if (is_free(nloc)) {
+        update_playfield(nloc);
 
         return true;
     }
@@ -114,7 +117,13 @@ bool TetrisGame::falldown() {
 
 void TetrisGame::rotate_if_possible(int direction) {}
 
-void TetrisGame::move_if_possible(int direction) {}
+void TetrisGame::move_if_possible(int direction) {
+    location_t nloc = new_loc(0, direction);
+
+    if (is_free(nloc)) {
+        update_playfield(nloc);
+    }
+}
 
 Piece TetrisGame::next_piece() {
     std::uniform_int_distribution<int> distr{0, 6};
