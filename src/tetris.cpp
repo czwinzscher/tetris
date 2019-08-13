@@ -90,14 +90,9 @@ bool TetrisGame::next_state(Move m) {
             move_if_possible(1);
             break;
         case Move::MOVE_DOWN:
-            if (!falldown()) {
-                cur_piece = next_piece();
-
-                if (!falldown()) {
-                    return false;
-                }
+            if (!process_falldown()) {
+                return false;
             }
-
             break;
         case Move::ROTATE_LEFT:
             rotate_if_possible(-1);
@@ -113,15 +108,7 @@ bool TetrisGame::next_state(Move m) {
     if (ticks_till_falldown == 0) {
         ticks_till_falldown = 500;
 
-        if (!falldown()) {
-            cur_piece = next_piece();
-
-            // the new piece automatically falls down one line
-            // if it cannot falldown, the game is lost
-            if (!falldown()) {
-                return false;
-            }
-        }
+        return process_falldown();
     }
 
     return true;
@@ -173,6 +160,20 @@ void TetrisGame::update_playfield(const location_t& nloc) {
     cur_piece.location = nloc;
 }
 
+bool TetrisGame::process_falldown() {
+    if (!falldown()) {
+        // if falldown() returns false we can try to clear lines
+        clear_full_lines();
+        cur_piece = next_piece();
+
+        // return if the new piece can fall down
+        // if it cannot, the game is lost
+        return falldown();
+    }
+
+    return true;
+}
+
 bool TetrisGame::falldown() {
     location_t nloc = new_loc(1, 0);
 
@@ -216,6 +217,39 @@ void TetrisGame::move_if_possible(int direction) {
     if (is_free(nloc)) {
         update_playfield(nloc);
     }
+}
+
+bool TetrisGame::is_line_full(size_t line) const {
+    for (size_t j = 0; j < FIELD_WIDTH; ++j) {
+        // if one cell is empty the line is not full
+        if (piece_at(line, j) == TET_EMPTY) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void TetrisGame::clear_single_line(size_t line) {
+    for (; line > 0; --line) {
+        for (size_t col = 0; col < FIELD_WIDTH; ++col) {
+            playfield.at(line).at(col) = playfield.at(line - 1).at(col);
+        }
+    }
+}
+
+int TetrisGame::clear_full_lines() {
+    // count how many lines were cleared
+    int counter = 0;
+
+    for (size_t i = 0; i < FIELD_HEIGHT; ++i) {
+        if (is_line_full(i)) {
+            counter++;
+            clear_single_line(i);
+        }
+    }
+
+    return counter;
 }
 
 Piece TetrisGame::next_piece() {

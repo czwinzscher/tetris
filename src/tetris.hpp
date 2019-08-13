@@ -55,11 +55,14 @@ private:
     Piece next_piece();
     location_t new_loc(int diff_lines, int diff_cols) const;
     bool is_free(const location_t& l) const;
+    bool process_falldown();
     bool falldown();
     void rotate_if_possible(int direction);
     void move_if_possible(int direction);
     void update_playfield(const location_t& nloc);
-    int clear_lines() const;
+    int clear_full_lines();
+    bool is_line_full(size_t line) const;
+    void clear_single_line(size_t line);
 
     int ticks_till_falldown;
     std::array<std::array<int, FIELD_WIDTH>, FIELD_HEIGHT> playfield;
