@@ -22,7 +22,6 @@
 using location_t = std::array<std::pair<int, int>, NUM_CELLS_TETROMINO>;
 using orientations_t =
     std::array<std::array<location_t, NUM_ORIENTATIONS>, NUM_TETROMINOS>;
-using playfield_t = std::array<std::array<int, FIELD_WIDTH>, FIELD_HEIGHT>;
 
 enum class Move {
     MOVE_LEFT,
@@ -62,7 +61,7 @@ private:
     void update_playfield(const location_t& nloc);
 
     int ticks_till_falldown;
-    playfield_t playfield;
+    std::array<std::array<int, FIELD_WIDTH>, FIELD_HEIGHT> playfield;
     Piece cur_piece;
     int cur_level;
     int cur_score;
