@@ -1,9 +1,7 @@
 #include "tetris.hpp"
 
-#include <chrono>
 #include <iostream>
 #include <ncurses.h>
-#include <thread>
 
 /**
  * Define tetromino colors.
@@ -59,9 +57,10 @@ int main() {
     start_color();         // to support colors in ncurses
     init_tetris_colors();  // init color support
     curs_set(0);           // hide cursor
+    cbreak();
     keypad(stdscr, TRUE);  // allow arrow keys
     noecho();              // don't print key presses to screen
-    timeout(0);            // non blocking getch()
+    timeout(1);            // non blocking getch()
 
     // create window for the playfield
     // use two columns per cell and two extra cells for the border
@@ -78,8 +77,6 @@ int main() {
 
         // actually show the board
         doupdate();
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
         switch (getch()) {
             case KEY_LEFT:
