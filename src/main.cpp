@@ -6,23 +6,20 @@
 #include <thread>
 
 /**
- * Initialize ncurses color support and define tetromino colors.
+ * Define tetromino colors.
  */
-void init_colors() {
-    // must be called after initscr() to be able to use color attributes
-    start_color();
-
+void init_tetris_colors() {
     // init_pair initializes a color pair consisting of a foreground
     // and a backgound color
     // the first argument is an int which is used to identify the pair
     // COLOR_PAIR(n) can be used to get the pair
     init_pair(TET_I, COLOR_CYAN, COLOR_BLACK);
-    init_pair(TET_O, COLOR_BLUE, COLOR_BLACK);
+    init_pair(TET_O, COLOR_YELLOW, COLOR_BLACK);
     init_pair(TET_T, COLOR_WHITE, COLOR_BLACK);
-    init_pair(TET_S, COLOR_YELLOW, COLOR_BLACK);
-    init_pair(TET_Z, COLOR_GREEN, COLOR_BLACK);
-    init_pair(TET_J, COLOR_MAGENTA, COLOR_BLACK);
-    init_pair(TET_L, COLOR_RED, COLOR_BLACK);
+    init_pair(TET_S, COLOR_GREEN, COLOR_BLACK);
+    init_pair(TET_Z, COLOR_RED, COLOR_BLACK);
+    init_pair(TET_J, COLOR_BLUE, COLOR_BLACK);
+    init_pair(TET_L, COLOR_MAGENTA, COLOR_BLACK);
 }
 
 /*
@@ -59,7 +56,8 @@ int main() {
 
     // ncurses init
     initscr();             // init ncurses screen
-    init_colors();         // init color support
+    start_color();         // to support colors in ncurses
+    init_tetris_colors();  // init color support
     refresh();             // must be called to get actual output
     curs_set(0);           // hide cursor
     keypad(stdscr, TRUE);  // allow arrow keys
