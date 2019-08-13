@@ -86,6 +86,10 @@ bool TetrisGame::next_state(Move m) {
         case Move::MOVE_DOWN:
             if (!falldown()) {
                 cur_piece = next_piece();
+
+                if (!falldown()) {
+                    return false;
+                }
             }
 
             break;
@@ -100,10 +104,16 @@ bool TetrisGame::next_state(Move m) {
 
         if (!falldown()) {
             cur_piece = next_piece();
+
+            // the new piece automatically falls down one line
+            // if it cannot falldown, the game is lost
+            if (!falldown()) {
+                return false;
+            }
         }
     }
 
-    return !game_over();
+    return true;
 }
 
 int TetrisGame::piece_at(int line, int col) const {
@@ -164,7 +174,30 @@ bool TetrisGame::falldown() {
     return false;
 }
 
-void TetrisGame::rotate_if_possible(int direction) {}
+void TetrisGame::rotate_if_possible(int direction) {
+    int t_type = cur_piece.tet_type;
+    int t_ori = cur_piece.orientation;
+    location_t old_ori = orientations.at(t_type).at(t_ori);
+    int new_ori_value = (t_ori + direction + 4) % 4;
+    location_t new_ori = orientations.at(t_type).at(new_ori_value);
+
+    location_t nloc = cur_piece.location;
+
+    for (size_t i = 0; i < NUM_CELLS_TETROMINO; ++i) {
+        int diff_lines = new_ori.at(i).first - old_ori.at(i).first;
+        int diff_cols = new_ori.at(i).second - old_ori.at(i).second;
+
+        nloc.at(i).first += diff_lines;
+        nloc.at(i).second += diff_cols;
+    }
+
+    if (is_free(nloc)) {
+        update_playfield(nloc);
+
+        // update orientation of current piece
+        cur_piece.orientation = new_ori_value;
+    }
+}
 
 void TetrisGame::move_if_possible(int direction) {
     location_t nloc = new_loc(0, direction);
@@ -180,7 +213,7 @@ Piece TetrisGame::next_piece() {
     int n = distr(mt);
     location_t l = start_positions.at(n);
 
-    return Piece(n, l, n * NUM_ORIENTATIONS);
+    return Piece(n, l, 0);
 }
 
 bool TetrisGame::game_over() const {
