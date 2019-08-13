@@ -68,7 +68,7 @@ int main() {
     WINDOW* board = newwin(FIELD_HEIGHT, 2 * FIELD_WIDTH + 2, 0, 0);
 
     bool game_running = true;
-    Move m = Move::NONE;
+    Move m = Move::MOVE_DOWN;
 
     // main game loop
     while (game_running) {
