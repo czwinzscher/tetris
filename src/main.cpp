@@ -73,10 +73,10 @@ int main() {
         game_running = game.next_state(m);
         draw_board(board, game);
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
-
         // actually show the board
         doupdate();
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
         switch (getch()) {
             case KEY_LEFT: m = Move::MOVE_LEFT; break;
