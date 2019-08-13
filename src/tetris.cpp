@@ -215,20 +215,3 @@ Piece TetrisGame::next_piece() {
 
     return Piece(n, l, 0);
 }
-
-bool TetrisGame::game_over() const {
-    // the game is over if the current piece is in its start position
-    // and the row below is not free
-
-    if (cur_piece.location != start_positions.at(cur_piece.tet_type)) {
-        return false;
-    }
-
-    location_t nl = new_loc(1, 0);
-
-    if (is_free(nl)) {
-        return false;
-    }
-
-    return true;
-}

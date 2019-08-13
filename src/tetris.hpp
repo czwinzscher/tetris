@@ -56,7 +56,6 @@ public:
 
 private:
     Piece next_piece();
-    bool game_over() const;
     location_t new_loc(int diff_lines, int diff_cols) const;
     bool is_free(const location_t& l) const;
     bool falldown();
