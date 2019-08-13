@@ -1,9 +1,11 @@
 #include "tetris.hpp"
 
 bool same_piece(const location_t& l, const std::pair<int, int>& c) {
-    for (const auto& part : l)
-        if (part == c)
+    for (const auto& part : l) {
+        if (part == c) {
             return true;
+        }
+    }
 
     return false;
 }
@@ -15,12 +17,14 @@ TetrisGame::TetrisGame()
     : ticks_till_falldown(500), cur_piece(next_piece()), cur_level(0),
       cur_score(0), mt(std::random_device{}()) {
     // init the playfield with empty cells
-    for (auto& line : playfield)
+    for (auto& line : playfield) {
         std::fill(line.begin(), line.end(), TET_EMPTY);
+    }
 
     // put start piece in the playfield
-    for (const auto& [x, y] : cur_piece.location)
+    for (const auto& [x, y] : cur_piece.location) {
         playfield.at(x).at(y) = cur_piece.tet_type;
+    }
 }
 
 int TetrisGame::score() { return cur_score; }
@@ -31,8 +35,9 @@ bool TetrisGame::next_state(Move m) {
         case Move::MOVE_LEFT: move_if_possible(-1); break;
         case Move::MOVE_RIGHT: move_if_possible(1); break;
         case Move::MOVE_DOWN:
-            if (!falldown())
+            if (!falldown()) {
                 cur_piece = next_piece();
+            }
 
             break;
         case Move::ROTATE_LEFT: rotate_if_possible(-1); break;
@@ -58,14 +63,17 @@ int TetrisGame::piece_at(int line, int col) const {
 
 bool TetrisGame::is_free(const location_t& l) const {
     for (const auto& [a, b] : l) {
-        if (same_piece(cur_piece.location, {a, b}))
+        if (same_piece(cur_piece.location, {a, b})) {
             continue;
+        }
 
-        if (a < 0 || a >= FIELD_HEIGHT || b < 0 || b >= FIELD_WIDTH)
+        if (a < 0 || a >= FIELD_HEIGHT || b < 0 || b >= FIELD_WIDTH) {
             return false;
+        }
 
-        if (piece_at(a, b) != TET_EMPTY)
+        if (piece_at(a, b) != TET_EMPTY) {
             return false;
+        }
     }
 
     return true;
@@ -114,16 +122,19 @@ bool TetrisGame::game_over() const {
     // the game is over if the current piece is in its start position
     // and the row below is not free
 
-    if (cur_piece.location != start_positions.at(cur_piece.tet_type))
+    if (cur_piece.location != start_positions.at(cur_piece.tet_type)) {
         return false;
+    }
 
     location_t new_loc = cur_piece.location;
-    for (auto& [a, b] : new_loc)
+    for (auto& [a, b] : new_loc) {
         // make line one higher
         a++;
+    }
 
-    if (is_free(new_loc))
+    if (is_free(new_loc)) {
         return false;
+    }
 
     return true;
 }
