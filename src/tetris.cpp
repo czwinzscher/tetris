@@ -12,7 +12,8 @@ Piece::Piece(int type, location_t loc, int ori)
     : tet_type(type), location(loc), orientation(ori) {}
 
 TetrisGame::TetrisGame()
-    : cur_piece(next_piece()), cur_score(0), mt(std::random_device{}()) {
+    : ticks_till_falldown(500), cur_piece(next_piece()), cur_score(0),
+      mt(std::random_device{}()) {
     // init the playfield with empty cells
     for (auto& line : playfield)
         std::fill(line.begin(), line.end(), TET_EMPTY);
@@ -25,6 +26,7 @@ TetrisGame::TetrisGame()
 int TetrisGame::score() { return cur_score; }
 
 bool TetrisGame::next_state(Move m) {
+    ticks_till_falldown--;
     switch (m) {
         case Move::MOVE_LEFT: move_if_possible(-1); break;
         case Move::MOVE_RIGHT: move_if_possible(1); break;
@@ -39,8 +41,13 @@ bool TetrisGame::next_state(Move m) {
     }
 
     // fall down regularly
-    if (!falldown())
-        cur_piece = next_piece();
+    if (ticks_till_falldown == 0) {
+        ticks_till_falldown = 500;
+
+        if (!falldown()) {
+            cur_piece = next_piece();
+        }
+    }
 
     return !game_over();
 }
@@ -90,6 +97,10 @@ bool TetrisGame::falldown() {
     return false;
 }
 
+void TetrisGame::rotate_if_possible(int direction) {}
+
+void TetrisGame::move_if_possible(int direction) {}
+
 Piece TetrisGame::next_piece() {
     std::uniform_int_distribution<int> distr{0, 6};
 
@@ -107,14 +118,12 @@ bool TetrisGame::game_over() const {
         return false;
 
     location_t new_loc = cur_piece.location;
-    for (auto& [a, b] : new_loc) {
+    for (auto& [a, b] : new_loc)
         // make line one higher
         a++;
-    }
 
-    if (is_free(new_loc)) {
+    if (is_free(new_loc))
         return false;
-    }
 
     return true;
 }
