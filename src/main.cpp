@@ -34,6 +34,8 @@ void draw_board(WINDOW* w, TetrisGame tg) {
 
     // start at 2 because the first two lines are not visible
     for (int i = 2; i < FIELD_HEIGHT; ++i) {
+        // add 1 to x value for border and substract two for first two lines
+        // y value is 1 because of the border
         wmove(w, i - 1, 1);
         for (int j = 0; j < FIELD_WIDTH; ++j) {
             int piece = tg.piece_at(i, j);
@@ -69,7 +71,7 @@ int main() {
     WINDOW* board = newwin(FIELD_HEIGHT, 2 * FIELD_WIDTH + 2, 0, 0);
 
     bool game_running = true;
-    auto m = Move::NONE;
+    Move m = Move::NONE;
 
     // main game loop
     while (game_running) {
