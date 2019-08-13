@@ -23,7 +23,14 @@ using location_t = std::array<std::pair<int, int>, NUM_CELLS>;
 using orientations_t =
     std::array<std::array<location_t, NUM_ORIENTATIONS>, NUM_TETROMINOS>;
 
-enum class Move { MOVE_LEFT, MOVE_RIGHT, MOVE_DOWN, ROTATE_LEFT, ROTATE_RIGHT };
+enum class Move {
+    MOVE_LEFT,
+    MOVE_RIGHT,
+    MOVE_DOWN,
+    ROTATE_LEFT,
+    ROTATE_RIGHT,
+    NONE
+};
 
 // clang-format off
 const std::array<location_t, NUM_TETROMINOS> start_positions = {{
