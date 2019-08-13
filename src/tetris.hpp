@@ -6,6 +6,7 @@
 
 #define FIELD_HEIGHT 22
 #define FIELD_WIDTH 10
+
 #define NUM_TETROMINOS 7
 #define NUM_ORIENTATIONS 4
 #define NUM_CELLS_TETROMINO 4
@@ -18,6 +19,8 @@
 #define TET_J 5
 #define TET_L 6
 #define TET_EMPTY 7
+
+#define LINES_PER_LEVEL 10
 
 using location_t = std::array<std::pair<int, int>, NUM_CELLS_TETROMINO>;
 using orientations_t =
@@ -51,7 +54,7 @@ public:
     int score();
 
     bool next_state(Move m);
-    int piece_at(int x, int y) const;
+    int piece_at(int line, int col) const;
 
 private:
     Piece next_piece();

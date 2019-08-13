@@ -181,7 +181,8 @@ bool TetrisGame::process_falldown() {
                 cur_score += 1200 * (cur_level + 1);
         }
 
-        if ((total_lines_cleared % 10) + lines_cleared >= 10) {
+        if ((total_lines_cleared % LINES_PER_LEVEL) + lines_cleared >=
+            LINES_PER_LEVEL) {
             cur_level++;
         }
 
@@ -276,7 +277,7 @@ int TetrisGame::clear_full_lines() {
 }
 
 Piece TetrisGame::next_piece() {
-    std::uniform_int_distribution<int> distr{0, 6};
+    std::uniform_int_distribution<int> distr{0, NUM_TETROMINOS - 1};
 
     int n = distr(mt);
     location_t l = start_positions.at(n);
