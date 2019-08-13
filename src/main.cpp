@@ -1,8 +1,9 @@
 #include "tetris.hpp"
 
 #include <chrono>
-#include <thread>
+#include <iostream>
 #include <ncurses.h>
+#include <thread>
 
 /**
  * Initialize ncurses color support and define tetromino colors.
@@ -82,13 +83,27 @@ int main() {
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
         switch (getch()) {
-            case KEY_LEFT: m = Move::MOVE_LEFT; break;
-            case KEY_RIGHT: m = Move::MOVE_RIGHT; break;
-            case KEY_DOWN: m = Move::MOVE_DOWN; break;
-            case 'y': m = Move::ROTATE_LEFT; break;
-            case 'x': m = Move::ROTATE_RIGHT; break;
-            case 'q': game_running = false; break;
-            default: m = Move::NONE; break;
+            case KEY_LEFT:
+                m = Move::MOVE_LEFT;
+                break;
+            case KEY_RIGHT:
+                m = Move::MOVE_RIGHT;
+                break;
+            case KEY_DOWN:
+                m = Move::MOVE_DOWN;
+                break;
+            case 'y':
+                m = Move::ROTATE_LEFT;
+                break;
+            case 'x':
+                m = Move::ROTATE_RIGHT;
+                break;
+            case 'q':
+                game_running = false;
+                break;
+            default:
+                m = Move::NONE;
+                break;
         }
     }
 
