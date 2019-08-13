@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -O3 -Wall
+CFLAGS = -O3 -Wall -std=c++17
 LFLAGS = -lncurses
 
 BIN = tetris
