@@ -163,7 +163,20 @@ void TetrisGame::update_playfield(const location_t& nloc) {
 bool TetrisGame::process_falldown() {
     if (!falldown()) {
         // if falldown() returns false we can try to clear lines
-        clear_full_lines();
+        int lines_cleared = clear_full_lines();
+
+        // update score
+        switch (lines_cleared) {
+            case 1:
+                cur_score += 40 * (cur_level + 1);
+            case 2:
+                cur_score += 100 * (cur_level + 1);
+            case 3:
+                cur_score += 300 * (cur_level + 1);
+            case 4:
+                cur_score += 1200 * (cur_level + 1);
+        }
+
         cur_piece = next_piece();
 
         // return if the new piece can fall down
