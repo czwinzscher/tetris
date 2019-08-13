@@ -1,5 +1,7 @@
 #include "tetris.hpp"
 
+#include <algorithm>
+
 // clang-format off
 const std::array<location_t, NUM_TETROMINOS> start_positions = {{
     {{ {0, 3}, {0, 4}, {0, 5}, {0, 6} }}, // I

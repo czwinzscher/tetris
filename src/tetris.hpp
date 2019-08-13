@@ -1,9 +1,7 @@
 #ifndef TETRIS_HPP
 #define TETRIS_HPP
 
-#include <algorithm>
 #include <array>
-#include <iostream>
 #include <random>
 
 #define FIELD_HEIGHT 22
