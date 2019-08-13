@@ -111,8 +111,10 @@ private:
     void rotate_if_possible(int direction);
     void move_if_possible(int direction);
 
+    int ticks_till_falldown;
     playfield_t playfield;
     Piece cur_piece;
+    int cur_level;
     int cur_score;
     std::mt19937 mt; // random number generator
 };
