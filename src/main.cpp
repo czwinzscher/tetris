@@ -70,7 +70,7 @@ int main() {
     WINDOW* board = newwin(FIELD_HEIGHT + 2, 2 * FIELD_WIDTH + 2, 0, 0);
 
     bool game_running = true;
-    auto m = Move::MOVE_DOWN;
+    auto m = Move::NONE;
 
     // main game loop
     while (game_running) {
@@ -78,7 +78,7 @@ int main() {
         game_running = game.next_state(m);
         draw_board(board, game);
 
-        sleep_millisecs(10);
+        sleep_millisecs(1);
 
         // actually show the board
         doupdate();
@@ -86,10 +86,11 @@ int main() {
         switch (getch()) {
             case KEY_LEFT: m = Move::MOVE_LEFT; break;
             case KEY_RIGHT: m = Move::MOVE_RIGHT; break;
+            case KEY_DOWN: m = Move::MOVE_DOWN; break;
             case 'y': m = Move::MOVE_LEFT; break;
             case 'x': m = Move::MOVE_RIGHT; break;
             case 'q': game_running = false; break;
-            default: break;
+            default: m = Move::NONE; break;
         }
     }
 
