@@ -4,7 +4,17 @@
 // #include <iostream>
 
 // clang-format off
-const orientations_t orientations = {{
+constexpr std::array<location_t, NUM_TETROMINOS> start_positions = {{
+    {{ {0, 3}, {0, 4}, {0, 5}, {0, 6} }}, // I
+    {{ {0, 4}, {0, 5}, {1, 4}, {1, 5} }}, // O
+    {{ {0, 3}, {0, 4}, {0, 5}, {1, 4} }}, // T
+    {{ {0, 3}, {0, 4}, {1, 2}, {1, 3} }}, // S
+    {{ {0, 3}, {0, 4}, {1, 4}, {1, 5} }}, // Z
+    {{ {0, 3}, {0, 4}, {0, 5}, {1, 5} }}, // J
+    {{ {0, 3}, {0, 4}, {0, 5}, {1, 3} }}  // L
+}};
+
+constexpr orientations_t orientations = {{
     // I
     {{ {{ {2, 0}, {2, 1}, {2, 2}, {2, 3} }},
        {{ {0, 2}, {1, 2}, {2, 2}, {3, 2} }},
@@ -41,20 +51,6 @@ const orientations_t orientations = {{
        {{ {0, 2}, {1, 0}, {1, 1}, {1, 2} }},
        {{ {0, 1}, {1, 1}, {2, 1}, {2, 2} }} }} }};
 // clang-format on
-
-location_t get_start_position(int tetromino) {
-    const std::array<location_t, NUM_TETROMINOS> start_positions = {{
-        {{ {0, 3}, {0, 4}, {0, 5}, {0, 6} }}, // I
-        {{ {0, 4}, {0, 5}, {1, 4}, {1, 5} }}, // O
-        {{ {0, 3}, {0, 4}, {0, 5}, {1, 4} }}, // T
-        {{ {0, 3}, {0, 4}, {1, 2}, {1, 3} }}, // S
-        {{ {0, 3}, {0, 4}, {1, 4}, {1, 5} }}, // Z
-        {{ {0, 3}, {0, 4}, {0, 5}, {1, 5} }}, // J
-        {{ {0, 3}, {0, 4}, {0, 5}, {1, 3} }}  // L
-    }};
-
-    return start_positions.at(tetromino);
-}
 
 bool same_piece(const location_t& l, const std::pair<int, int>& c) {
     for (const auto& part : l) {
@@ -284,7 +280,7 @@ Piece TetrisGame::next_piece() {
     std::uniform_int_distribution<int> distr{0, NUM_TETROMINOS - 1};
 
     int n = distr(mt);
-    location_t l = get_start_position(n);
+    location_t l = start_positions.at(n);
 
     return Piece(n, l, 0);
 }
