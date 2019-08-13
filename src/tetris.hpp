@@ -34,6 +34,8 @@ enum class Move {
 
 bool same_piece(const location_t& l, const std::pair<int, int>& c);
 
+int ticks_from_level(int level);
+
 struct Piece {
     Piece(int tet_type, location_t location, int orientation);
 
