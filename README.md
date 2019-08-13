@@ -23,3 +23,9 @@ make
 - `down`: move down (soft drop)
 - `y`: rotate left
 - `x`: rotate right
+
+## TODO
+- show current score
+- show current level
+- show next piece
+- show cleared lines
