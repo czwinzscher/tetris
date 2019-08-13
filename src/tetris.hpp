@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <array>
+#include <iostream>
 #include <random>
 
 #define FIELD_HEIGHT 22
@@ -23,7 +24,7 @@
 using location_t = std::array<std::pair<int, int>, NUM_CELLS_TETROMINO>;
 using orientations_t =
     std::array<std::array<location_t, NUM_ORIENTATIONS>, NUM_TETROMINOS>;
-using playfield_t = std::array<std::array<int, FIELD_HEIGHT>, FIELD_WIDTH>;
+using playfield_t = std::array<std::array<int, FIELD_WIDTH>, FIELD_HEIGHT>;
 
 enum class Move {
     MOVE_LEFT,
@@ -83,6 +84,8 @@ const orientations_t orientations = {{
        {{ {0, 1}, {1, 1}, {2, 1}, {2, 2} }} }} }};
 // clang-format on
 
+bool same_piece(const location_t& l, const std::pair<int, int>& c);
+
 struct Piece {
     Piece(int tet_type, location_t location, int orientation);
 
@@ -103,7 +106,8 @@ public:
 private:
     Piece next_piece();
     bool game_over() const;
-    bool piece_fits() const;
+    bool is_free(const location_t& l) const;
+    bool falldown();
     void rotate_if_possible(int direction);
     void move_if_possible(int direction);
 
