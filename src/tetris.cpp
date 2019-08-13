@@ -26,15 +26,15 @@ int TetrisGame::score() { return cur_score; }
 
 bool TetrisGame::next_state(Move m) {
     switch (m) {
-        case Move::MOVE_LEFT: break;
-        case Move::MOVE_RIGHT: break;
+        case Move::MOVE_LEFT: move_if_possible(-1); break;
+        case Move::MOVE_RIGHT: move_if_possible(1); break;
         case Move::MOVE_DOWN:
             if (!falldown())
                 cur_piece = next_piece();
 
             break;
-        case Move::ROTATE_LEFT: break;
-        case Move::ROTATE_RIGHT: break;
+        case Move::ROTATE_LEFT: rotate_if_possible(-1); break;
+        case Move::ROTATE_RIGHT: rotate_if_possible(1); break;
         case Move::NONE: break;
     }
 
