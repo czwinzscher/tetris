@@ -1,6 +1,7 @@
 #include "tetris.hpp"
 
 #include <algorithm>
+// #include <iostream>
 
 // clang-format off
 const std::array<location_t, NUM_TETROMINOS> start_positions = {{
@@ -61,12 +62,15 @@ bool same_piece(const location_t& l, const std::pair<int, int>& c) {
     return false;
 }
 
+int ticks_from_level(int level) { return std::max(500 - (level * 20), 20); }
+
 Piece::Piece(int type, location_t loc, int ori)
     : tet_type(type), location(loc), orientation(ori) {}
 
 TetrisGame::TetrisGame(int level)
-    : cur_piece(next_piece()), cur_level(level), ticks_till_falldown(500),
-      total_lines_cleared(0), cur_score(0), mt(std::random_device{}()) {
+    : cur_piece(next_piece()), cur_level(level),
+      ticks_till_falldown(ticks_from_level(cur_level)), total_lines_cleared(0),
+      cur_score(0), mt(std::random_device{}()) {
     // init the playfield with empty cells
     for (auto& line : playfield) {
         std::fill(line.begin(), line.end(), TET_EMPTY);
@@ -106,7 +110,7 @@ bool TetrisGame::next_state(Move m) {
 
     // fall down regularly
     if (ticks_till_falldown == 0) {
-        ticks_till_falldown = 500;
+        ticks_till_falldown = ticks_from_level(cur_level);
 
         return process_falldown();
     }
@@ -175,6 +179,10 @@ bool TetrisGame::process_falldown() {
                 cur_score += 300 * (cur_level + 1);
             case 4:
                 cur_score += 1200 * (cur_level + 1);
+        }
+
+        if ((total_lines_cleared % 10) + lines_cleared >= 10) {
+            cur_level++;
         }
 
         total_lines_cleared += lines_cleared;
