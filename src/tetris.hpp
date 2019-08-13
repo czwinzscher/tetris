@@ -59,6 +59,7 @@ private:
     void rotate_if_possible(int direction);
     void move_if_possible(int direction);
     void update_playfield(const location_t& nloc);
+    int clear_lines() const;
 
     int ticks_till_falldown;
     std::array<std::array<int, FIELD_WIDTH>, FIELD_HEIGHT> playfield;
