@@ -1,7 +1,13 @@
 #include "tetris.hpp"
 
-#include <iostream>
 #include <ncurses.h>
+
+void sleep_millisecs(int t) {
+    struct timespec ts;
+    ts.tv_sec = 0;
+    ts.tv_nsec = t * 1000 * 1000;
+    nanosleep(&ts, NULL);
+}
 
 /**
  * Initialize ncurses color support and define tetromino colors.
@@ -30,7 +36,7 @@ void init_colors() {
 void draw_board(WINDOW* w, TetrisGame tg) {
     box(w, 0, 0);
 
-    for (int i = 0; i < FIELD_HEIGHT; ++i) {
+    for (int i = 2; i < FIELD_HEIGHT; ++i) {
         wmove(w, i + 1, 1);
         for (int j = 0; j < FIELD_WIDTH; ++j) {
             int piece = tg.piece_at(i, j);
@@ -57,20 +63,22 @@ int main() {
     curs_set(0);           // hide cursor
     keypad(stdscr, TRUE);  // allow arrow keys
     noecho();              // don't print key presses to screen
-    // timeout(0);            // non blocking getch()
+    timeout(0);            // non blocking getch()
 
     // create window for the playfield
-    // use two columns per cell
+    // use two columns per cell and two extra cells for the border
     WINDOW* board = newwin(FIELD_HEIGHT + 2, 2 * FIELD_WIDTH + 2, 0, 0);
 
     bool game_running = true;
-    auto m = Move::NONE;
+    auto m = Move::MOVE_DOWN;
 
     // main game loop
     while (game_running) {
         // handle the last input and check if the game is over or not
         game_running = game.next_state(m);
         draw_board(board, game);
+
+        sleep_millisecs(10);
 
         // actually show the board
         doupdate();
