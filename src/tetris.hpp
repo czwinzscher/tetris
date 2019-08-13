@@ -47,7 +47,7 @@ struct Piece {
 
 class TetrisGame {
 public:
-    TetrisGame();
+    TetrisGame(int level);
 
     int score();
 

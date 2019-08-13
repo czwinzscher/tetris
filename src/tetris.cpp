@@ -62,8 +62,8 @@ bool same_piece(const location_t& l, const std::pair<int, int>& c) {
 Piece::Piece(int type, location_t loc, int ori)
     : tet_type(type), location(loc), orientation(ori) {}
 
-TetrisGame::TetrisGame()
-    : ticks_till_falldown(500), cur_piece(next_piece()), cur_level(0),
+TetrisGame::TetrisGame(int level)
+    : ticks_till_falldown(500), cur_piece(next_piece()), cur_level(level),
       cur_score(0), mt(std::random_device{}()) {
     // init the playfield with empty cells
     for (auto& line : playfield) {

@@ -52,7 +52,7 @@ void draw_board(WINDOW* w, TetrisGame tg) {
 
 int main() {
     // create Tetris Game
-    TetrisGame game{};
+    TetrisGame game{0};
 
     // ncurses init
     initscr();             // init ncurses screen
