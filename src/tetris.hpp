@@ -35,8 +35,8 @@ enum class Move {
     NONE
 };
 
+location_t get_start_position(int tetromino);
 bool same_piece(const location_t& l, const std::pair<int, int>& c);
-
 int ticks_from_level(int level);
 
 struct Piece {
