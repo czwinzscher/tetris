@@ -72,7 +72,7 @@ private:
     int ticks_till_falldown;
     int total_lines_cleared;
     int cur_score;
-    std::mt19937 mt; // random number generator
+    std::mt19937 mt;  // random number generator
 };
 
 #endif
