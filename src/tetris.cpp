@@ -5,7 +5,10 @@ Piece::Piece(int type, location_t loc, int ori)
 
 TetrisGame::TetrisGame()
     : cur_piece(next_piece()), cur_score(0), mt(std::random_device{}()) {
-        std::fill(playfield.begin(), playfield.end(), TET_EMPTY);
+        // init the playfield with empty cells
+        for (auto& col : playfield) {
+            std::fill(col.begin(), col.end(), TET_EMPTY);
+        }
     }
 
 int TetrisGame::score() { return cur_score; }
@@ -24,7 +27,7 @@ bool TetrisGame::next_state(Move m) {
 }
 
 int TetrisGame::piece_at(int x, int y) const {
-    return 3;
+    return playfield.at(x).at(y);
 }
 
 Piece TetrisGame::next_piece() {

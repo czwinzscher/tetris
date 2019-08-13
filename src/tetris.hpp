@@ -10,7 +10,6 @@
 #define NUM_TETROMINOS 7
 #define NUM_ORIENTATIONS 4
 #define NUM_CELLS_TETROMINO 4
-#define NUM_CELLS_FIELD FIELD_HEIGHT* FIELD_WIDTH
 
 #define TET_I 0
 #define TET_O 1
@@ -24,7 +23,7 @@
 using location_t = std::array<std::pair<int, int>, NUM_CELLS_TETROMINO>;
 using orientations_t =
     std::array<std::array<location_t, NUM_ORIENTATIONS>, NUM_TETROMINOS>;
-using playfield_t = std::array<int, NUM_CELLS_FIELD>;
+using playfield_t = std::array<std::array<int, FIELD_HEIGHT>, FIELD_WIDTH>;
 
 enum class Move {
     MOVE_LEFT,
