@@ -58,7 +58,6 @@ int main() {
     initscr();             // init ncurses screen
     start_color();         // to support colors in ncurses
     init_tetris_colors();  // init color support
-    refresh();             // must be called to get actual output
     curs_set(0);           // hide cursor
     keypad(stdscr, TRUE);  // allow arrow keys
     noecho();              // don't print key presses to screen
