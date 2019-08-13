@@ -3,10 +3,17 @@
 #include <iostream>
 #include <ncurses.h>
 
-
+/**
+ * Initialize ncurses color support and define tetromino colors.
+ */
 void init_colors() {
+    // must be called after initscr() to be able to use color attributes
     start_color();
 
+    // init_pair initializes a color pair consisting of a foreground
+    // and a backgound color
+    // the first argument is an int which is used to identify the pair
+    // COLOR_PAIR(n) can be used to get the pair
     init_pair(TET_I, COLOR_CYAN, COLOR_BLACK);
     init_pair(TET_O, COLOR_BLUE, COLOR_BLACK);
     init_pair(TET_T, COLOR_WHITE, COLOR_BLACK);
@@ -16,6 +23,10 @@ void init_colors() {
     init_pair(TET_L, COLOR_RED, COLOR_BLACK);
 }
 
+/*
+ * Draws the current playfield to the window, but does not show it.
+ * The ncurses function doupdate() must be called later to display it.
+ */
 void draw_board(WINDOW* w, TetrisGame tg) {
     box(w, 0, 0);
 
@@ -37,26 +48,31 @@ void draw_board(WINDOW* w, TetrisGame tg) {
 };
 
 int main() {
-    // FIELD_HEIGHTte Tetris Game
+    // create Tetris Game
     TetrisGame game{};
 
-    // init ncurses
-    initscr();
-    init_colors();
-    refresh();
+    initscr();             // init ncurses
+    init_colors();         // init color support
+    refresh();             // must be called to get actual output
+    curs_set(0);           // hide cursor
     keypad(stdscr, TRUE);  // allow arrow keys
     noecho();              // don't print key presses to screen
-    timeout(0);            // non blocking getch()
+    // timeout(0);            // non blocking getch()
 
+    // create window for the playfield
+    // use two columns per cell
     WINDOW* board = newwin(FIELD_HEIGHT + 2, 2 * FIELD_WIDTH + 2, 0, 0);
 
     bool game_running = true;
-    auto m = Move::MOVE_DOWN;
+    auto m = Move::NONE;
 
+    // main game loop
     while (game_running) {
+        // handle the last input and check if the game is over or not
         game_running = game.next_state(m);
         draw_board(board, game);
 
+        // actually show the board
         doupdate();
 
         switch (getch()) {
@@ -72,6 +88,7 @@ int main() {
     // end ncurses
     endwin();
 
+    // print the score to the terminal
     std::cout << "You finished the game with " << game.score() << " points.\n";
 
     return 0;
