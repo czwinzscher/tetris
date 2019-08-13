@@ -31,8 +31,9 @@ void init_colors() {
 void draw_board(WINDOW* w, TetrisGame tg) {
     box(w, 0, 0);
 
+    // start at 2 because the first two lines are not visible
     for (int i = 2; i < FIELD_HEIGHT; ++i) {
-        wmove(w, i + 1, 1);
+        wmove(w, i - 1, 1);
         for (int j = 0; j < FIELD_WIDTH; ++j) {
             int piece = tg.piece_at(i, j);
             if (piece == TET_EMPTY) {
@@ -45,6 +46,7 @@ void draw_board(WINDOW* w, TetrisGame tg) {
         }
     }
 
+    // refresh but do not show the new screen yet
     wnoutrefresh(w);
 };
 
@@ -52,7 +54,8 @@ int main() {
     // create Tetris Game
     TetrisGame game{};
 
-    initscr();             // init ncurses
+    // ncurses init
+    initscr();             // init ncurses screen
     init_colors();         // init color support
     refresh();             // must be called to get actual output
     curs_set(0);           // hide cursor
@@ -62,7 +65,7 @@ int main() {
 
     // create window for the playfield
     // use two columns per cell and two extra cells for the border
-    WINDOW* board = newwin(FIELD_HEIGHT + 2, 2 * FIELD_WIDTH + 2, 0, 0);
+    WINDOW* board = newwin(FIELD_HEIGHT, 2 * FIELD_WIDTH + 2, 0, 0);
 
     bool game_running = true;
     auto m = Move::NONE;
