@@ -85,8 +85,8 @@ int main() {
             case KEY_LEFT: m = Move::MOVE_LEFT; break;
             case KEY_RIGHT: m = Move::MOVE_RIGHT; break;
             case KEY_DOWN: m = Move::MOVE_DOWN; break;
-            case 'y': m = Move::MOVE_LEFT; break;
-            case 'x': m = Move::MOVE_RIGHT; break;
+            case 'y': m = Move::ROTATE_LEFT; break;
+            case 'x': m = Move::ROTATE_RIGHT; break;
             case 'q': game_running = false; break;
             default: m = Move::NONE; break;
         }
