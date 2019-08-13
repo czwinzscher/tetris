@@ -1,13 +1,8 @@
 #include "tetris.hpp"
 
+#include <chrono>
+#include <thread>
 #include <ncurses.h>
-
-void sleep_millisecs(int t) {
-    struct timespec ts;
-    ts.tv_sec = 0;
-    ts.tv_nsec = t * 1000 * 1000;
-    nanosleep(&ts, NULL);
-}
 
 /**
  * Initialize ncurses color support and define tetromino colors.
@@ -78,7 +73,7 @@ int main() {
         game_running = game.next_state(m);
         draw_board(board, game);
 
-        sleep_millisecs(1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
         // actually show the board
         doupdate();
