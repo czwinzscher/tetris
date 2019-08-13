@@ -6,7 +6,8 @@
 
 ## Building
 ```bash
-cd src
+git clone https://github.com/czwinzscher/tetris.git
+cd tetris/src
 make
 ```
 
