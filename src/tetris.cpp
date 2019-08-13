@@ -26,7 +26,7 @@ bool TetrisGame::next_state(Move m) {
     return !game_over();
 }
 
-int TetrisGame::piece_at(int x, int y) const {
+int TetrisGame::piece_at(int y, int x) const {
     return playfield.at(x).at(y);
 }
 
