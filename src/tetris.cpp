@@ -12,8 +12,8 @@ Piece::Piece(int type, location_t loc, int ori)
     : tet_type(type), location(loc), orientation(ori) {}
 
 TetrisGame::TetrisGame()
-    : ticks_till_falldown(500), cur_piece(next_piece()), cur_score(0),
-      mt(std::random_device{}()) {
+    : ticks_till_falldown(500), cur_piece(next_piece()), cur_level(0),
+      cur_score(0), mt(std::random_device{}()) {
     // init the playfield with empty cells
     for (auto& line : playfield)
         std::fill(line.begin(), line.end(), TET_EMPTY);
