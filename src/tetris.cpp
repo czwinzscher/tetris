@@ -171,10 +171,13 @@ bool TetrisGame::process_falldown() {
         switch (lines_cleared) {
             case 1:
                 cur_score += 40 * (cur_level + 1);
+                break;
             case 2:
                 cur_score += 100 * (cur_level + 1);
+                break;
             case 3:
                 cur_score += 300 * (cur_level + 1);
+                break;
             case 4:
                 cur_score += 1200 * (cur_level + 1);
         }
