@@ -20,7 +20,8 @@ int main() {
     // create windows
     // use two columns per cell and two extra cells for the border
     WINDOW* board = newwin(FIELD_HEIGHT, 2 * FIELD_WIDTH + 2, 0, 0);
-    WINDOW* lines = newwin(4, 10, 0, 2 * FIELD_WIDTH + 4);
+    WINDOW* lines_window = newwin(4, 10, 0, 2 * FIELD_WIDTH + 4);
+    WINDOW* score_window = newwin(4, 10, 4, 2 * FIELD_WIDTH + 4);
 
     bool game_running = true;
     Move m = Move::MOVE_DOWN;
@@ -30,7 +31,8 @@ int main() {
         // handle the last input and check if the game is over or not
         game_running = game.next_state(m);
         draw_board(board, game);
-        draw_lines(lines, game.total_lines_cleared);
+        draw_lines(lines_window, game.total_lines_cleared);
+        draw_score(score_window, game.cur_score);
 
         // actually show the board
         doupdate();

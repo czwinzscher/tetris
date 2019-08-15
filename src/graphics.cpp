@@ -49,3 +49,15 @@ void draw_lines(WINDOW* w, int lines) {
 
     wnoutrefresh(w);
 }
+
+void draw_score(WINDOW* w, int score) {
+    box(w, 0, 0);
+
+    wmove(w, 1, 1);
+    wprintw(w, "Score");
+
+    wmove(w, 2, 1);
+    wprintw(w, std::to_string(score).c_str());
+
+    wnoutrefresh(w);
+}

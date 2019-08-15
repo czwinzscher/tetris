@@ -23,7 +23,7 @@ void draw_lines(WINDOW* w, int lines);
 /**
  * Draws a box that shows the current score.
  */
-void draw_score(WINDOW* w, TetrisGame tg);
+void draw_score(WINDOW* w, int score);
 
 /**
  * Draws a box that shows the next piece.
