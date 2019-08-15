@@ -68,7 +68,8 @@ Piece::Piece(int type, location_t loc, int ori)
     : tet_type(type), location(loc), orientation(ori) {}
 
 TetrisGame::TetrisGame(int level)
-    : mt(std::random_device{}()), cur_piece(next_piece()), cur_level(level),
+    : mt(std::random_device{}()), cur_piece(generate_piece()),
+      next_piece(generate_piece()), cur_level(level),
       ticks_till_falldown(ticks_from_level(cur_level)), total_lines_cleared(0),
       cur_score(0) {
     // init the playfield with empty cells
@@ -189,7 +190,8 @@ bool TetrisGame::process_falldown() {
 
         total_lines_cleared += lines_cleared;
 
-        cur_piece = next_piece();
+        cur_piece = next_piece;
+        next_piece = generate_piece();
 
         // return if the new piece can fall down
         // if it cannot, the game is lost
@@ -277,7 +279,7 @@ int TetrisGame::clear_full_lines() {
     return counter;
 }
 
-Piece TetrisGame::next_piece() {
+Piece TetrisGame::generate_piece() {
     std::uniform_int_distribution<int> distr{0, NUM_TETROMINOS - 1};
 
     int n = distr(mt);
