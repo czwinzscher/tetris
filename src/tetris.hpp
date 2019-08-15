@@ -115,7 +115,7 @@ struct TetrisGame {
     /**
      * Randomly generates the next piece
      */
-    Piece next_piece();
+    Piece generate_piece();
 
     /**
      * Calculates a new location from cur_piece with the given difference.
@@ -199,6 +199,11 @@ struct TetrisGame {
      * Variable for the active piece.
      */
     Piece cur_piece;
+
+    /**
+     * Variable for the next piece.
+     */
+    Piece next_piece;
 
     /**
      * Variable for the current level, gets initialized by the value passed
