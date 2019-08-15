@@ -105,7 +105,7 @@ struct TetrisGame {
      * if it is the case. It also checks if the game is over or not and returns
      * this value.
      */
-    bool next_state(Move m);
+    [[nodiscard]] bool next_state(Move m);
 
     /**
      * Function for getting the value of a single cell in the playfield.
@@ -137,13 +137,13 @@ struct TetrisGame {
      * If the new piece can't falldown either the function returns false
      * because the game is over, otherwhise return true.
      */
-    bool process_falldown();
+    [[nodiscard]] bool process_falldown();
 
     /**
      * Moves the current piece one line down if possible and return wether it
      * was possible or not.
      */
-    bool falldown();
+    [[nodiscard]] bool falldown();
 
     /**
      * Rotates the current piece right if direction is 1 and left if it is -1.
