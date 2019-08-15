@@ -14,7 +14,7 @@ void init_tetris_colors() {
     init_pair(TET_L, COLOR_MAGENTA, COLOR_BLACK);
 }
 
-void draw_board(WINDOW* w, TetrisGame tg) {
+void draw_board(WINDOW* w, const TetrisGame& tg) {
     box(w, 0, 0);
 
     // start at 2 because the first two lines are not visible

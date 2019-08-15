@@ -13,7 +13,7 @@ void init_tetris_colors();
 /**
  * Draws a box that shows the current playfield.
  */
-void draw_board(WINDOW* w, TetrisGame tg);
+void draw_board(WINDOW* w, const TetrisGame& tg);
 
 /**
  * Draws a box that shows the number of total lines cleared.
