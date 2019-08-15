@@ -30,7 +30,7 @@ int main() {
         // handle the last input and check if the game is over or not
         game_running = game.next_state(m);
         draw_board(board, game);
-        draw_lines(lines, game);
+        draw_lines(lines, game.total_lines_cleared);
 
         // actually show the board
         doupdate();

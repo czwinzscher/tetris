@@ -18,7 +18,7 @@ void draw_board(WINDOW* w, TetrisGame tg);
 /**
  * Draws a box that shows the number of total lines cleared.
  */
-void draw_lines(WINDOW* w, TetrisGame tg);
+void draw_lines(WINDOW* w, int lines);
 
 /**
  * Draws a box that shows the current score.
