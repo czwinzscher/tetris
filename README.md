@@ -25,7 +25,5 @@ make
 - `x`: rotate right
 
 ## TODO
-- show current score
-- show current level
-- show next piece
-- show cleared lines
+- show piece statistics
+- add screenshot/gif to readme
