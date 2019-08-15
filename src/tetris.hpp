@@ -86,16 +86,16 @@ struct Piece {
 };
 
 /**
- * A Class for handling a tetris game
+ * A Struct for handling a tetris game
  */
-class TetrisGame {
-public:
-    TetrisGame(int level);
-
+struct TetrisGame {
     /**
-     * Getter for cur_score.
+     * Constructor for a Tetrisgame.
+     *
+     * Sets cur_level to the given parameter, sets total_lines_cleared and
+     * cur_score to zero and generates the next piece.
      */
-    int score();
+    TetrisGame(int level);
 
     /**
      * Function for processing the user input and handling the falldown.
@@ -112,7 +112,6 @@ public:
      */
     int piece_at(int line, int col) const;
 
-private:
     /**
      * Randomly generates the next piece
      */
@@ -179,6 +178,12 @@ private:
     void clear_single_line(size_t line);
 
     /**
+     * Variable for the random number generator that is used to generate
+     * the next piece.
+     */
+    std::mt19937 mt;
+
+    /**
      * Variable for the current playfield.
      *
      * The playfield is a two-dimensional array consisting of an array
@@ -228,12 +233,6 @@ private:
      * @see process_falldown()
      */
     int cur_score;
-
-    /**
-     * Variable for the random number generator that is used to generate
-     * the next piece.
-     */
-    std::mt19937 mt;
 };
 
 #endif

@@ -68,9 +68,9 @@ Piece::Piece(int type, location_t loc, int ori)
     : tet_type(type), location(loc), orientation(ori) {}
 
 TetrisGame::TetrisGame(int level)
-    : cur_piece(next_piece()), cur_level(level),
+    : mt(std::random_device{}()), cur_piece(next_piece()), cur_level(level),
       ticks_till_falldown(ticks_from_level(cur_level)), total_lines_cleared(0),
-      cur_score(0), mt(std::random_device{}()) {
+      cur_score(0) {
     // init the playfield with empty cells
     for (auto& line : playfield) {
         std::fill(line.begin(), line.end(), TET_EMPTY);
@@ -81,8 +81,6 @@ TetrisGame::TetrisGame(int level)
         playfield.at(x).at(y) = cur_piece.tet_type;
     }
 }
-
-int TetrisGame::score() { return cur_score; }
 
 bool TetrisGame::next_state(Move m) {
     ticks_till_falldown--;
