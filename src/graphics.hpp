@@ -33,5 +33,5 @@ void draw_next(WINDOW* w, TetrisGame tg);
 /**
  * Draws a box that shows the current level.
  */
-void draw_level(WINDOW* w, TetrisGame tg);
+void draw_level(WINDOW* w, int level);
 #endif

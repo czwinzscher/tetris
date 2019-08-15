@@ -61,3 +61,15 @@ void draw_score(WINDOW* w, int score) {
 
     wnoutrefresh(w);
 }
+
+void draw_level(WINDOW* w, int level) {
+    box(w, 0, 0);
+
+    wmove(w, 1, 1);
+    wprintw(w, "Level");
+
+    wmove(w, 2, 1);
+    wprintw(w, std::to_string(level).c_str());
+
+    wnoutrefresh(w);
+}
