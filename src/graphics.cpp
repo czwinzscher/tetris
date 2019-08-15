@@ -1,8 +1,5 @@
 #include "graphics.hpp"
 
-/**
- * Define tetromino colors.
- */
 void init_tetris_colors() {
     // init_pair initializes a color pair consisting of a foreground
     // and a backgound color
@@ -17,10 +14,6 @@ void init_tetris_colors() {
     init_pair(TET_L, COLOR_MAGENTA, COLOR_BLACK);
 }
 
-/*
- * Draws the current playfield to the window, but does not show it.
- * The ncurses function doupdate() must be called later to display it.
- */
 void draw_board(WINDOW* w, TetrisGame tg) {
     box(w, 0, 0);
 
@@ -44,3 +37,15 @@ void draw_board(WINDOW* w, TetrisGame tg) {
     // refresh but do not show the new screen yet
     wnoutrefresh(w);
 };
+
+void draw_lines(WINDOW* w, int lines) {
+    box(w, 0, 0);
+
+    wmove(w, 1, 1);
+    wprintw(w, "Lines");
+
+    wmove(w, 2, 1);
+    wprintw(w, std::to_string(lines).c_str());
+
+    wnoutrefresh(w);
+}
