@@ -20,9 +20,10 @@ int main() {
     // create windows
     // use two columns per cell and two extra cells for the border
     WINDOW* board = newwin(FIELD_HEIGHT, 2 * FIELD_WIDTH + 2, 0, 0);
-    WINDOW* lines_window = newwin(4, 10, 0, 2 * FIELD_WIDTH + 4);
-    WINDOW* score_window = newwin(4, 10, 4, 2 * FIELD_WIDTH + 4);
-    WINDOW* level_window = newwin(4, 10, 8, 2 * FIELD_WIDTH + 4);
+    WINDOW* lines_window = newwin(5, 14, 0, 2 * FIELD_WIDTH + 2);
+    WINDOW* score_window = newwin(5, 14, 5, 2 * FIELD_WIDTH + 2);
+    WINDOW* next_window = newwin(7, 14, 10, 2 * FIELD_WIDTH + 2);
+    WINDOW* level_window = newwin(5, 14, 17, 2 * FIELD_WIDTH + 2);
 
     bool game_running = true;
     Move m = Move::MOVE_DOWN;
@@ -34,6 +35,7 @@ int main() {
         draw_board(board, game);
         draw_lines(lines_window, game.total_lines_cleared);
         draw_score(score_window, game.cur_score);
+        draw_next(next_window, game.next_piece);
         draw_level(level_window, game.cur_level);
 
         // actually show the board

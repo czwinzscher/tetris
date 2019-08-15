@@ -28,7 +28,7 @@ void draw_score(WINDOW* w, int score);
 /**
  * Draws a box that shows the next piece.
  */
-void draw_next(WINDOW* w, TetrisGame tg);
+void draw_next(WINDOW* w, const Piece& piece);
 
 /**
  * Draws a box that shows the current level.

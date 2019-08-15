@@ -44,7 +44,7 @@ void draw_lines(WINDOW* w, int lines) {
     wmove(w, 1, 1);
     wprintw(w, "Lines");
 
-    wmove(w, 2, 1);
+    wmove(w, 3, 1);
     wprintw(w, std::to_string(lines).c_str());
 
     wnoutrefresh(w);
@@ -56,8 +56,25 @@ void draw_score(WINDOW* w, int score) {
     wmove(w, 1, 1);
     wprintw(w, "Score");
 
-    wmove(w, 2, 1);
+    wmove(w, 3, 1);
     wprintw(w, std::to_string(score).c_str());
+
+    wnoutrefresh(w);
+}
+
+void draw_next(WINDOW* w, const Piece& piece) {
+    box(w, 0, 0);
+
+    wbkgd(w, ' ');
+
+    wmove(w, 1, 1);
+    wprintw(w, "Next");
+
+    for (const auto& [line, col] : piece.location) {
+        wmove(w, line + 3, 2 * (col - 1));
+        waddch(w, ' ' | A_REVERSE | COLOR_PAIR(piece.tet_type));
+        waddch(w, ' ' | A_REVERSE | COLOR_PAIR(piece.tet_type));
+    }
 
     wnoutrefresh(w);
 }
@@ -68,7 +85,7 @@ void draw_level(WINDOW* w, int level) {
     wmove(w, 1, 1);
     wprintw(w, "Level");
 
-    wmove(w, 2, 1);
+    wmove(w, 3, 1);
     wprintw(w, std::to_string(level).c_str());
 
     wnoutrefresh(w);
