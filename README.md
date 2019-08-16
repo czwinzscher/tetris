@@ -34,4 +34,3 @@ make
 ## TODO
 - add harddrop
 - show piece statistics
-- add screenshot/gif to readme
