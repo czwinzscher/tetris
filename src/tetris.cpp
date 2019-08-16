@@ -67,9 +67,9 @@ int ticks_from_level(int level) { return std::max(500 - (level * 20), 20); }
 Piece::Piece(int type, location_t loc, int ori)
     : tet_type(type), location(loc), orientation(ori) {}
 
-TetrisGame::TetrisGame(int level)
+TetrisGame::TetrisGame()
     : mt(std::random_device{}()), cur_piece(generate_piece()),
-      next_piece(generate_piece()), cur_level(level),
+      next_piece(generate_piece()), cur_level(0),
       ticks_till_falldown(ticks_from_level(cur_level)), total_lines_cleared(0),
       cur_score(0) {
     // init the playfield with empty cells
@@ -109,6 +109,7 @@ bool TetrisGame::next_state(Move m) {
 
     // fall down regularly
     if (ticks_till_falldown == 0) {
+        // reset ticks
         ticks_till_falldown = ticks_from_level(cur_level);
 
         return process_falldown();
@@ -119,6 +120,11 @@ bool TetrisGame::next_state(Move m) {
 
 int TetrisGame::piece_at(int line, int col) const {
     return playfield.at(line).at(col);
+}
+
+void TetrisGame::set_level(int level) {
+    cur_level = level;
+    ticks_till_falldown = ticks_from_level(cur_level);
 }
 
 location_t TetrisGame::new_loc(int diff_lines, int diff_cols) const {
@@ -185,7 +191,7 @@ bool TetrisGame::process_falldown() {
 
         if ((total_lines_cleared % LINES_PER_LEVEL) + lines_cleared >=
             LINES_PER_LEVEL) {
-            cur_level++;
+            set_level(cur_level + 1);
         }
 
         total_lines_cleared += lines_cleared;

@@ -95,7 +95,7 @@ struct TetrisGame {
      * Sets cur_level to the given parameter, sets total_lines_cleared and
      * cur_score to zero and generates the next piece.
      */
-    TetrisGame(int level);
+    TetrisGame();
 
     /**
      * Function for processing the user input and handling the falldown.
@@ -111,6 +111,11 @@ struct TetrisGame {
      * Function for getting the value of a single cell in the playfield.
      */
     int piece_at(int line, int col) const;
+
+    /**
+     * Sets the level and resets the ticks_till_falldown accordingly.
+     */
+    void set_level(int level);
 
     /**
      * Randomly generates the next piece

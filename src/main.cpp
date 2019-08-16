@@ -2,10 +2,26 @@
 #include "tetris.hpp"
 
 #include <iostream>
+#include <sstream>
 
-int main() {
+int main(int argc, char* argv[]) {
     // create Tetris Game
-    TetrisGame game{0};
+    TetrisGame game{};
+
+    // set correct level depending on commandline arguments
+    if (argc >= 2) {
+        std::istringstream iss{argv[1]};
+        int level;
+
+        if (iss >> level) {
+            if (level < 0) {
+                std::cout << "The level should not be less than 0\n";
+                return 1;
+            }
+
+            game.set_level(level);
+        }
+    }
 
     // ncurses init
     initscr();             // init ncurses screen
