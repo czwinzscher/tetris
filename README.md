@@ -13,7 +13,10 @@ make
 
 ## Running
 ```bash
+# start at level 0 (default)
 ./tetris
+# start at other level, e.g. 10
+./tetris 10
 ```
 
 ## Controls
