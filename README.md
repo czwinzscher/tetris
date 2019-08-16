@@ -1,5 +1,7 @@
 # Tetris
 
+![Tetris](tetris-screenshot.png)
+
 ## Dependencies
 - `ncurses` for the terminal interface
 - `make` and `gcc` with c++17 support for compiling
