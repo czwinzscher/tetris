@@ -4,6 +4,8 @@
 - `ncurses` for the terminal interface
 - `make` and `gcc` with c++17 support for compiling
 
+To install dependencies on Ubuntu run `sudo apt install libncurses5-dev build-essential`
+
 ## Building
 ```bash
 git clone https://github.com/czwinzscher/tetris.git
