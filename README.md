@@ -28,8 +28,8 @@ make
 - `left`: move left
 - `right`: move right
 - `down`: move down (soft drop)
-- `y`: rotate left
-- `x`: rotate right
+- `a`: rotate left
+- `s`: rotate right
 
 ## TODO
 - add harddrop

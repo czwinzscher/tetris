@@ -67,10 +67,10 @@ int main(int argc, char* argv[]) {
             case KEY_DOWN:
                 m = Move::MOVE_DOWN;
                 break;
-            case 'y':
+            case 'a':
                 m = Move::ROTATE_LEFT;
                 break;
-            case 'x':
+            case 's':
                 m = Move::ROTATE_RIGHT;
                 break;
             case 'q':
