@@ -97,6 +97,9 @@ bool TetrisGame::next_state(Move m) {
                 return false;
             }
             break;
+        case Move::MOVE_UP:
+            while (falldown()) {}
+            return process_falldown();
         case Move::ROTATE_LEFT:
             rotate_if_possible(-1);
             break;

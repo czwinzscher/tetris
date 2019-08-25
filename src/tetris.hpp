@@ -34,6 +34,7 @@ enum class Move {
     MOVE_LEFT,
     MOVE_RIGHT,
     MOVE_DOWN,
+    MOVE_UP,
     ROTATE_LEFT,
     ROTATE_RIGHT,
     NONE
@@ -61,8 +62,6 @@ int ticks_from_level(int level);
 struct Piece {
     /**
      * Piece constructor.
-     *
-     * Initializes the member variables with the parameters.
      */
     Piece(int tet_type, location_t location, int orientation);
 
@@ -92,7 +91,7 @@ struct TetrisGame {
     /**
      * Constructor for a Tetrisgame.
      *
-     * Sets cur_level to the given parameter, sets total_lines_cleared and
+     * Sets cur_level, total_lines_cleared and
      * cur_score to zero and generates the next piece.
      */
     TetrisGame();
@@ -167,7 +166,8 @@ struct TetrisGame {
     void update_playfield(const location_t& nloc);
 
     /**
-     * Removes all full lines from the playfield.
+     * Removes all full lines from the playfield amd returns the
+     * number of cleared lines.
      */
     int clear_full_lines();
 

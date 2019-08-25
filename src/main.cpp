@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[]) {
     // create Tetris Game
-    TetrisGame game{};
+    TetrisGame game;
 
     // set correct level depending on commandline arguments
     if (argc >= 2) {
@@ -28,7 +28,6 @@ int main(int argc, char* argv[]) {
     start_color();         // to support colors in ncurses
     init_tetris_colors();  // init tetromino colors
     curs_set(0);           // hide cursor
-    cbreak();
     keypad(stdscr, TRUE);  // allow arrow keys
     noecho();              // don't print key presses to screen
     timeout(1);            // non blocking getch()
@@ -66,6 +65,9 @@ int main(int argc, char* argv[]) {
                 break;
             case KEY_DOWN:
                 m = Move::MOVE_DOWN;
+                break;
+            case KEY_UP:
+                m = Move::MOVE_UP;
                 break;
             case 'a':
                 m = Move::ROTATE_LEFT;
