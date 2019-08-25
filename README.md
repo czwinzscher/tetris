@@ -28,9 +28,9 @@ make
 - `left`: move left
 - `right`: move right
 - `down`: move down (soft drop)
+- `up`: hard drop
 - `a`: rotate left
 - `s`: rotate right
 
 ## TODO
-- add harddrop
 - show piece statistics
