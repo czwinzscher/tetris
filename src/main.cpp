@@ -27,6 +27,7 @@ int main(int argc, char* argv[]) {
     initscr();             // init ncurses screen
     start_color();         // to support colors in ncurses
     init_tetris_colors();  // init tetromino colors
+    cbreak();              // disable line buffering
     curs_set(0);           // hide cursor
     keypad(stdscr, TRUE);  // allow arrow keys
     noecho();              // don't print key presses to screen
