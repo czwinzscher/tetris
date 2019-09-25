@@ -53,13 +53,7 @@ constexpr orientations_t orientations = {{
 // clang-format on
 
 bool same_piece(const location_t& l, const std::pair<int, int>& c) {
-    for (const auto& part : l) {
-        if (part == c) {
-            return true;
-        }
-    }
-
-    return false;
+    return std::find(l.begin(), l.end(), c) != l.end();
 }
 
 int ticks_from_level(int level) { return std::max(500 - (level * 20), 20); }
