@@ -7,6 +7,7 @@
 - `make` and `gcc` with c++17 support for compiling
 
 To install dependencies on Ubuntu run `sudo apt install libncurses5-dev build-essential`
+On Arch Linux (which I use btw) run `sudo pacman -S ncurses base-devel`
 
 ## Building
 ```bash
