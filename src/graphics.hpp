@@ -1,5 +1,4 @@
-#ifndef GRAPHICS_HPP
-#define GRAPHICS_HPP
+#pragma once
 
 #include "tetris.hpp"
 
@@ -34,4 +33,3 @@ void draw_next(WINDOW* w, const Piece& piece);
  * Draws a box that shows the current level.
  */
 void draw_level(WINDOW* w, int level);
-#endif

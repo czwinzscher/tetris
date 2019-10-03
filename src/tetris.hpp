@@ -1,5 +1,4 @@
-#ifndef TETRIS_HPP
-#define TETRIS_HPP
+#pragma once
 
 #include <array>
 #include <random>
@@ -244,5 +243,3 @@ struct TetrisGame {
      */
     int cur_score;
 };
-
-#endif
