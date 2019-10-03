@@ -3,6 +3,8 @@
 #include <algorithm>
 // #include <iostream>
 
+#define LINES_PER_LEVEL 10
+
 // clang-format off
 constexpr std::array<location_t, NUM_TETROMINOS> start_positions = {{
     {{ {0, 3}, {0, 4}, {0, 5}, {0, 6} }}, // I
@@ -14,6 +16,8 @@ constexpr std::array<location_t, NUM_TETROMINOS> start_positions = {{
     {{ {0, 3}, {0, 4}, {0, 5}, {1, 3} }}  // L
 }};
 
+using orientations_t =
+    std::array<std::array<location_t, NUM_ORIENTATIONS>, NUM_TETROMINOS>;
 constexpr orientations_t orientations = {{
     // I
     {{ {{ {2, 0}, {2, 1}, {2, 2}, {2, 3} }},

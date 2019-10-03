@@ -19,11 +19,7 @@
 #define TET_L 6
 #define TET_EMPTY 7
 
-#define LINES_PER_LEVEL 10
-
 using location_t = std::array<std::pair<int, int>, NUM_CELLS_TETROMINO>;
-using orientations_t =
-    std::array<std::array<location_t, NUM_ORIENTATIONS>, NUM_TETROMINOS>;
 
 /**
  * Enum with all possible moves by the user. The moves get handled by
