@@ -209,9 +209,9 @@ bool TetrisGame::process_falldown() {
 }
 
 bool TetrisGame::falldown() {
-    location_t nloc = new_loc(1, 0);
-
-    if (is_free(nloc)) {
+    // add 1 line and 0 columns to the current piece position
+    // and check if the new position is free
+    if (auto nloc = new_loc(1, 0); is_free(nloc)) {
         update_playfield(nloc);
 
         return true;
@@ -246,9 +246,10 @@ void TetrisGame::rotate_if_possible(int direction) {
 }
 
 void TetrisGame::move_if_possible(int direction) {
-    location_t nloc = new_loc(0, direction);
-
-    if (is_free(nloc)) {
+    // move the piece by the value of direction
+    // to the left if negative, right if positive
+    // check if new position is free
+    if (auto nloc = new_loc(0, direction); is_free(nloc)) {
         update_playfield(nloc);
     }
 }
