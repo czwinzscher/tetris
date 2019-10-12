@@ -176,19 +176,7 @@ bool TetrisGame::process_falldown() {
         int lines_cleared = clear_full_lines();
 
         // update score
-        switch (lines_cleared) {
-            case 1:
-                cur_score += 40 * (cur_level + 1);
-                break;
-            case 2:
-                cur_score += 100 * (cur_level + 1);
-                break;
-            case 3:
-                cur_score += 300 * (cur_level + 1);
-                break;
-            case 4:
-                cur_score += 1200 * (cur_level + 1);
-        }
+        cur_score += (lines_cleared * lines_cleared);
 
         if ((total_lines_cleared % lines_per_level) + lines_cleared >=
             lines_per_level) {

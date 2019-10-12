@@ -226,10 +226,7 @@ struct TetrisGame {
      * Variable for the current score, gets initialized with zero.
      *
      * When one or more lines are cleared the score gets updated:
-     * 1 line: cur_score += 40 * (cur_level + 1)
-     * 2 lines: cur_score += 100 * (cur_level + 1)
-     * 3 lines: cur_score += 300 * (cur_level + 1)
-     * 4 lines: cur_score += 1200 * (cur_level + 1)
+     * cur_score += lines_cleared * lines_cleared
      *
      * @see process_falldown()
      */
