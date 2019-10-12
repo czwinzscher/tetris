@@ -3,7 +3,7 @@
 #include <algorithm>
 // #include <iostream>
 
-#define LINES_PER_LEVEL 10
+constexpr int lines_per_level = 10;
 
 // clang-format off
 constexpr std::array<location_t, num_tetrominos> start_positions = {{
@@ -62,7 +62,7 @@ bool same_piece(const location_t& l, const std::pair<int, int>& c) {
 
 int ticks_from_level(int level) { return std::max(500 - (level * 20), 20); }
 
-Piece::Piece(int type, location_t loc, int ori)
+Piece::Piece(Tetromino type, location_t loc, int ori)
     : tet_type(type), location(loc), orientation(ori) {}
 
 TetrisGame::TetrisGame()
@@ -72,7 +72,7 @@ TetrisGame::TetrisGame()
       cur_score(0) {
     // init the playfield with empty cells
     for (auto& line : playfield) {
-        std::fill(line.begin(), line.end(), TET_EMPTY);
+        std::fill(line.begin(), line.end(), Tetromino::EMPTY);
     }
 
     // put start piece in the playfield
@@ -119,7 +119,7 @@ bool TetrisGame::next_state(Move m) {
     return true;
 }
 
-int TetrisGame::piece_at(int line, int col) const {
+Tetromino TetrisGame::piece_at(int line, int col) const {
     return playfield.at(line).at(col);
 }
 
@@ -149,7 +149,7 @@ bool TetrisGame::is_free(const location_t& l) const {
             return false;
         }
 
-        if (piece_at(a, b) != TET_EMPTY) {
+        if (piece_at(a, b) != Tetromino::EMPTY) {
             return false;
         }
     }
@@ -159,7 +159,7 @@ bool TetrisGame::is_free(const location_t& l) const {
 
 void TetrisGame::update_playfield(const location_t& nloc) {
     for (const auto& [a, b] : cur_piece.location) {
-        playfield.at(a).at(b) = TET_EMPTY;
+        playfield.at(a).at(b) = Tetromino::EMPTY;
     }
 
     // set new_positions
@@ -190,8 +190,8 @@ bool TetrisGame::process_falldown() {
                 cur_score += 1200 * (cur_level + 1);
         }
 
-        if ((total_lines_cleared % LINES_PER_LEVEL) + lines_cleared >=
-            LINES_PER_LEVEL) {
+        if ((total_lines_cleared % lines_per_level) + lines_cleared >=
+            lines_per_level) {
             set_level(cur_level + 1);
         }
 
@@ -221,7 +221,7 @@ bool TetrisGame::falldown() {
 }
 
 void TetrisGame::rotate_if_possible(int direction) {
-    int t_type = cur_piece.tet_type;
+    int t_type = static_cast<int>(cur_piece.tet_type);
     int t_ori = cur_piece.orientation;
     location_t old_ori = orientations.at(t_type).at(t_ori);
     int new_ori_value = (t_ori + direction + 4) % 4;
@@ -257,7 +257,7 @@ void TetrisGame::move_if_possible(int direction) {
 bool TetrisGame::is_line_full(size_t line) const {
     for (size_t j = 0; j < field_width; ++j) {
         // if one cell is empty the line is not full
-        if (piece_at(line, j) == TET_EMPTY) {
+        if (piece_at(line, j) == Tetromino::EMPTY) {
             return false;
         }
     }
@@ -291,7 +291,8 @@ Piece TetrisGame::generate_piece() {
     std::uniform_int_distribution<int> distr{0, num_tetrominos - 1};
 
     int n = distr(mt);
+    Tetromino tet = static_cast<Tetromino>(n);
     location_t l = start_positions.at(n);
 
-    return Piece(n, l, 0);
+    return Piece(tet, l, 0);
 }

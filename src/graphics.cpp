@@ -5,13 +5,13 @@ void init_tetris_colors() {
     // and a backgound color
     // the first argument is an int which is used to identify the pair
     // COLOR_PAIR(n) can be used to get the pair
-    init_pair(TET_I, COLOR_CYAN, COLOR_BLACK);
-    init_pair(TET_O, COLOR_YELLOW, COLOR_BLACK);
-    init_pair(TET_T, COLOR_WHITE, COLOR_BLACK);
-    init_pair(TET_S, COLOR_GREEN, COLOR_BLACK);
-    init_pair(TET_Z, COLOR_RED, COLOR_BLACK);
-    init_pair(TET_J, COLOR_BLUE, COLOR_BLACK);
-    init_pair(TET_L, COLOR_MAGENTA, COLOR_BLACK);
+    init_pair(static_cast<int>(Tetromino::I), COLOR_CYAN, COLOR_BLACK);
+    init_pair(static_cast<int>(Tetromino::O), COLOR_YELLOW, COLOR_BLACK);
+    init_pair(static_cast<int>(Tetromino::T), COLOR_WHITE, COLOR_BLACK);
+    init_pair(static_cast<int>(Tetromino::S), COLOR_GREEN, COLOR_BLACK);
+    init_pair(static_cast<int>(Tetromino::Z), COLOR_RED, COLOR_BLACK);
+    init_pair(static_cast<int>(Tetromino::J), COLOR_BLUE, COLOR_BLACK);
+    init_pair(static_cast<int>(Tetromino::L), COLOR_MAGENTA, COLOR_BLACK);
 }
 
 void draw_board(WINDOW* w, const TetrisGame& tg) {
@@ -23,13 +23,12 @@ void draw_board(WINDOW* w, const TetrisGame& tg) {
         // y value is 1 because of the border
         wmove(w, i - 1, 1);
         for (int j = 0; j < field_width; ++j) {
-            int piece = tg.piece_at(i, j);
-            if (piece == TET_EMPTY) {
+            if (auto piece = tg.piece_at(i, j); piece == Tetromino::EMPTY) {
                 waddch(w, ' ');
                 waddch(w, ' ');
             } else {
-                waddch(w, ' ' | A_REVERSE | COLOR_PAIR(piece));
-                waddch(w, ' ' | A_REVERSE | COLOR_PAIR(piece));
+                waddch(w, ' ' | A_REVERSE | COLOR_PAIR(static_cast<int>(piece)));
+                waddch(w, ' ' | A_REVERSE | COLOR_PAIR(static_cast<int>(piece)));
             }
         }
     }

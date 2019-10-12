@@ -10,16 +10,12 @@ constexpr int num_tetrominos = 7;
 constexpr int num_orientations = 4;
 constexpr int num_cells_tetromino = 4;
 
-#define TET_I 0
-#define TET_O 1
-#define TET_T 2
-#define TET_S 3
-#define TET_Z 4
-#define TET_J 5
-#define TET_L 6
-#define TET_EMPTY 7
-
 using location_t = std::array<std::pair<int, int>, num_cells_tetromino>;
+
+/**
+ * Enum with all the pieces including an empty piece.
+ */
+enum class Tetromino { I, O, T, S, Z, J, L, EMPTY };
 
 /**
  * Enum with all possible moves by the user. The moves get handled by
@@ -58,12 +54,12 @@ struct Piece {
     /**
      * Piece constructor.
      */
-    Piece(int tet_type, location_t location, int orientation);
+    Piece(Tetromino tet_type, location_t location, int orientation);
 
     /**
      * Variable for the type of the piece, is a number between 0 and 6.
      */
-    int tet_type;
+    Tetromino tet_type;
 
     /**
      * Variable for the location of the piece, is an array of 4 pairs
@@ -104,7 +100,7 @@ struct TetrisGame {
     /**
      * Function for getting the value of a single cell in the playfield.
      */
-    int piece_at(int line, int col) const;
+    Tetromino piece_at(int line, int col) const;
 
     /**
      * Sets the level and resets the ticks_till_falldown accordingly.
@@ -193,7 +189,7 @@ struct TetrisGame {
      *
      * @see piece_at()
      */
-    std::array<std::array<int, field_width>, field_height> playfield;
+    std::array<std::array<Tetromino, field_width>, field_height> playfield;
 
     /**
      * Variable for the active piece.
