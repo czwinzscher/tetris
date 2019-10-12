@@ -6,9 +6,9 @@
 constexpr int field_height = 22;
 constexpr int field_width = 10;
 
-#define NUM_TETROMINOS 7
-#define NUM_ORIENTATIONS 4
-#define NUM_CELLS_TETROMINO 4
+constexpr int num_tetrominos = 7;
+constexpr int num_orientations = 4;
+constexpr int num_cells_tetromino = 4;
 
 #define TET_I 0
 #define TET_O 1
@@ -19,7 +19,7 @@ constexpr int field_width = 10;
 #define TET_L 6
 #define TET_EMPTY 7
 
-using location_t = std::array<std::pair<int, int>, NUM_CELLS_TETROMINO>;
+using location_t = std::array<std::pair<int, int>, num_cells_tetromino>;
 
 /**
  * Enum with all possible moves by the user. The moves get handled by

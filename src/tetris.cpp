@@ -6,7 +6,7 @@
 #define LINES_PER_LEVEL 10
 
 // clang-format off
-constexpr std::array<location_t, NUM_TETROMINOS> start_positions = {{
+constexpr std::array<location_t, num_tetrominos> start_positions = {{
     {{ {0, 3}, {0, 4}, {0, 5}, {0, 6} }}, // I
     {{ {0, 4}, {0, 5}, {1, 4}, {1, 5} }}, // O
     {{ {0, 3}, {0, 4}, {0, 5}, {1, 4} }}, // T
@@ -17,7 +17,7 @@ constexpr std::array<location_t, NUM_TETROMINOS> start_positions = {{
 }};
 
 using orientations_t =
-    std::array<std::array<location_t, NUM_ORIENTATIONS>, NUM_TETROMINOS>;
+    std::array<std::array<location_t, num_orientations>, num_tetrominos>;
 constexpr orientations_t orientations = {{
     // I
     {{ {{ {2, 0}, {2, 1}, {2, 2}, {2, 3} }},
@@ -229,7 +229,7 @@ void TetrisGame::rotate_if_possible(int direction) {
 
     location_t nloc = cur_piece.location;
 
-    for (size_t i = 0; i < NUM_CELLS_TETROMINO; ++i) {
+    for (size_t i = 0; i < num_cells_tetromino; ++i) {
         int diff_lines = new_ori.at(i).first - old_ori.at(i).first;
         int diff_cols = new_ori.at(i).second - old_ori.at(i).second;
 
@@ -288,7 +288,7 @@ int TetrisGame::clear_full_lines() {
 }
 
 Piece TetrisGame::generate_piece() {
-    std::uniform_int_distribution<int> distr{0, NUM_TETROMINOS - 1};
+    std::uniform_int_distribution<int> distr{0, num_tetrominos - 1};
 
     int n = distr(mt);
     location_t l = start_positions.at(n);
