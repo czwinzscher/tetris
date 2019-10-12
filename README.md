@@ -36,3 +36,4 @@ make
 
 ## TODO
 - show piece statistics
+- option to pause game
