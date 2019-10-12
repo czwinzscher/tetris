@@ -145,7 +145,7 @@ bool TetrisGame::is_free(const location_t& l) const {
             continue;
         }
 
-        if (a < 0 || a >= FIELD_HEIGHT || b < 0 || b >= FIELD_WIDTH) {
+        if (a < 0 || a >= field_height || b < 0 || b >= field_width) {
             return false;
         }
 
@@ -255,7 +255,7 @@ void TetrisGame::move_if_possible(int direction) {
 }
 
 bool TetrisGame::is_line_full(size_t line) const {
-    for (size_t j = 0; j < FIELD_WIDTH; ++j) {
+    for (size_t j = 0; j < field_width; ++j) {
         // if one cell is empty the line is not full
         if (piece_at(line, j) == TET_EMPTY) {
             return false;
@@ -267,7 +267,7 @@ bool TetrisGame::is_line_full(size_t line) const {
 
 void TetrisGame::clear_single_line(size_t line) {
     for (; line > 0; --line) {
-        for (size_t col = 0; col < FIELD_WIDTH; ++col) {
+        for (size_t col = 0; col < field_width; ++col) {
             playfield.at(line).at(col) = playfield.at(line - 1).at(col);
         }
     }
@@ -277,7 +277,7 @@ int TetrisGame::clear_full_lines() {
     // count how many lines were cleared
     int counter = 0;
 
-    for (size_t i = 0; i < FIELD_HEIGHT; ++i) {
+    for (size_t i = 0; i < field_height; ++i) {
         if (is_line_full(i)) {
             counter++;
             clear_single_line(i);

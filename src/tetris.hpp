@@ -3,8 +3,8 @@
 #include <array>
 #include <random>
 
-#define FIELD_HEIGHT 22
-#define FIELD_WIDTH 10
+constexpr int field_height = 22;
+constexpr int field_width = 10;
 
 #define NUM_TETROMINOS 7
 #define NUM_ORIENTATIONS 4
@@ -193,7 +193,7 @@ struct TetrisGame {
      *
      * @see piece_at()
      */
-    std::array<std::array<int, FIELD_WIDTH>, FIELD_HEIGHT> playfield;
+    std::array<std::array<int, field_width>, field_height> playfield;
 
     /**
      * Variable for the active piece.

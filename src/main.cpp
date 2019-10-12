@@ -35,11 +35,11 @@ int main(int argc, char* argv[]) {
 
     // create windows
     // use two columns per cell and two extra cells for the border
-    WINDOW* board = newwin(FIELD_HEIGHT, 2 * FIELD_WIDTH + 2, 0, 0);
-    WINDOW* lines_window = newwin(5, 14, 0, 2 * FIELD_WIDTH + 2);
-    WINDOW* score_window = newwin(5, 14, 5, 2 * FIELD_WIDTH + 2);
-    WINDOW* next_window = newwin(7, 14, 10, 2 * FIELD_WIDTH + 2);
-    WINDOW* level_window = newwin(5, 14, 17, 2 * FIELD_WIDTH + 2);
+    WINDOW* board = newwin(field_height, 2 * field_width + 2, 0, 0);
+    WINDOW* lines_window = newwin(5, 14, 0, 2 * field_width + 2);
+    WINDOW* score_window = newwin(5, 14, 5, 2 * field_width + 2);
+    WINDOW* next_window = newwin(7, 14, 10, 2 * field_width + 2);
+    WINDOW* level_window = newwin(5, 14, 17, 2 * field_width + 2);
 
     bool game_running = true;
     Move m = Move::MOVE_DOWN;

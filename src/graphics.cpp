@@ -18,11 +18,11 @@ void draw_board(WINDOW* w, const TetrisGame& tg) {
     box(w, 0, 0);
 
     // start at 2 because the first two lines are not visible
-    for (int i = 2; i < FIELD_HEIGHT; ++i) {
+    for (int i = 2; i < field_height; ++i) {
         // add 1 to x value for border and substract two for first two lines
         // y value is 1 because of the border
         wmove(w, i - 1, 1);
-        for (int j = 0; j < FIELD_WIDTH; ++j) {
+        for (int j = 0; j < field_width; ++j) {
             int piece = tg.piece_at(i, j);
             if (piece == TET_EMPTY) {
                 waddch(w, ' ');
