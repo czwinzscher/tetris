@@ -3,6 +3,19 @@
 #include <algorithm>
 // #include <iostream>
 
+constexpr playfield_t get_start_playfield() {
+    playfield_t p{};
+    for (auto& line : p) {
+        for (auto& col : line) {
+            col = Tetromino::EMPTY;
+        }
+    }
+
+    return p;
+}
+
+constexpr playfield_t default_playfield = get_start_playfield();
+
 // clang-format off
 constexpr std::array<location_t, num_tetrominos> start_positions = {{
     {{ {0, 3}, {0, 4}, {0, 5}, {0, 6} }}, // I
@@ -64,15 +77,10 @@ Piece::Piece(Tetromino type, location_t loc, int ori)
     : tet_type(type), location(loc), orientation(ori) {}
 
 TetrisGame::TetrisGame()
-    : mt(std::random_device{}()), cur_piece(generate_piece()),
-      next_piece(generate_piece()), cur_level(0),
+    : mt(std::random_device{}()), playfield(default_playfield),
+      cur_piece(generate_piece()), next_piece(generate_piece()), cur_level(0),
       ticks_till_falldown(ticks_from_level(cur_level)), total_lines_cleared(0),
       cur_score(0) {
-    // init the playfield with empty cells
-    for (auto& line : playfield) {
-        std::fill(line.begin(), line.end(), Tetromino::EMPTY);
-    }
-
     // put start piece in the playfield
     for (const auto& [x, y] : cur_piece.location) {
         playfield.at(x).at(y) = cur_piece.tet_type;
