@@ -100,7 +100,7 @@ struct TetrisGame {
     /**
      * Function for getting the value of a single cell in the playfield.
      */
-    Tetromino piece_at(int line, int col) const;
+    [[nodiscard]] Tetromino piece_at(int line, int col) const;
 
     /**
      * Sets the level and resets the ticks_till_falldown accordingly.
@@ -115,14 +115,14 @@ struct TetrisGame {
     /**
      * Calculates a new location from cur_piece with the given difference.
      */
-    location_t new_loc(int diff_lines, int diff_cols) const;
+    [[nodiscard]] location_t new_loc(int diff_lines, int diff_cols) const;
 
     /**
      * Checks if the playfield is empty in all cells of the given location.
      * If a cell of the given location is part of the cur_piece it is also
      * considered free.
      */
-    bool is_free(const location_t& l) const;
+    [[nodiscard]] bool is_free(const location_t& l) const;
 
     /**
      * Calls falldown() to let the active piece fall down and if it was not
@@ -165,7 +165,7 @@ struct TetrisGame {
     /**
      * Checks if all cells in the given line are not empty.
      */
-    bool is_line_full(size_t line) const;
+    [[nodiscard]] bool is_line_full(size_t line) const;
 
     /**
      * Removes the given line from the playfield and makes all lines above fall
