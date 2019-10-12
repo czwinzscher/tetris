@@ -3,8 +3,6 @@
 #include <algorithm>
 // #include <iostream>
 
-constexpr int lines_per_level = 10;
-
 // clang-format off
 constexpr std::array<location_t, num_tetrominos> start_positions = {{
     {{ {0, 3}, {0, 4}, {0, 5}, {0, 6} }}, // I
@@ -178,6 +176,7 @@ bool TetrisGame::process_falldown() {
         // update score
         cur_score += (lines_cleared * lines_cleared);
 
+        const int lines_per_level = 10;
         if ((total_lines_cleared % lines_per_level) + lines_cleared >=
             lines_per_level) {
             set_level(cur_level + 1);
