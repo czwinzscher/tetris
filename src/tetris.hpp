@@ -17,6 +17,9 @@ using location_t = std::array<std::pair<int, int>, num_cells_tetromino>;
  */
 enum class Tetromino { I, O, T, S, Z, J, L, EMPTY };
 
+using playfield_t =
+    std::array<std::array<Tetromino, field_width>, field_height>;
+
 /**
  * Enum with all possible moves by the user. The moves get handled by
  * next_state().
@@ -189,7 +192,7 @@ struct TetrisGame {
      *
      * @see piece_at()
      */
-    std::array<std::array<Tetromino, field_width>, field_height> playfield;
+    playfield_t playfield;
 
     /**
      * Variable for the active piece.
