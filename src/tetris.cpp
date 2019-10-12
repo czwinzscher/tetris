@@ -88,7 +88,6 @@ TetrisGame::TetrisGame()
 }
 
 bool TetrisGame::next_state(Move m) {
-    ticks_till_falldown--;
     switch (m) {
         case Move::MOVE_LEFT:
             move_if_possible(-1);
@@ -115,7 +114,7 @@ bool TetrisGame::next_state(Move m) {
     }
 
     // fall down regularly
-    if (ticks_till_falldown == 0) {
+    if (--ticks_till_falldown == 0) {
         // reset ticks
         ticks_till_falldown = ticks_from_level(cur_level);
 
