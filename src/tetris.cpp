@@ -77,9 +77,13 @@ Piece::Piece(Tetromino type, location_t loc, int ori)
     : tet_type(type), location(std::move(loc)), orientation(ori) {}
 
 TetrisGame::TetrisGame()
-    : mt(std::random_device{}()), playfield(default_playfield),
-      cur_piece(generate_piece()), next_piece(generate_piece()), cur_level(0),
-      ticks_till_falldown(ticks_from_level(cur_level)), total_lines_cleared(0),
+    : mt(std::random_device{}()),
+      playfield(default_playfield),
+      cur_piece(generate_piece()),
+      next_piece(generate_piece()),
+      cur_level(0),
+      ticks_till_falldown(ticks_from_level(cur_level)),
+      total_lines_cleared(0),
       cur_score(0) {
     // put start piece in the playfield
     for (const auto& [x, y] : cur_piece.location) {
