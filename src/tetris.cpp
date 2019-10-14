@@ -74,7 +74,7 @@ bool same_piece(const location_t& l, const std::pair<int, int>& c) {
 int ticks_from_level(int level) { return std::max(500 - (level * 20), 20); }
 
 Piece::Piece(Tetromino type, location_t loc, int ori)
-    : tet_type(type), location(loc), orientation(ori) {}
+    : tet_type(type), location(std::move(loc)), orientation(ori) {}
 
 TetrisGame::TetrisGame()
     : mt(std::random_device{}()), playfield(default_playfield),
