@@ -1,6 +1,7 @@
 #include "graphics.hpp"
 #include "tetris.hpp"
 
+#include <ncurses.h>
 #include <iostream>
 #include <sstream>
 
@@ -10,7 +11,7 @@ int main(int argc, char* argv[]) {
 
     // set correct level depending on commandline arguments
     if (argc >= 2) {
-        std::istringstream iss{argv[1]};
+        std::istringstream iss{argv[1]};  // NOLINT
         int level;
 
         if (iss >> level) {
@@ -75,6 +76,12 @@ int main(int argc, char* argv[]) {
                 break;
             case 's':
                 m = Move::ROTATE_RIGHT;
+                break;
+            case 'p':
+                timeout(-1);
+                getch();
+                timeout(1);
+                m = Move::NONE;
                 break;
             case 'q':
                 game_running = false;
