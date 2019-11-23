@@ -37,7 +37,6 @@ make
 
 ## TODO
 - show piece statistics
-- option to pause game
 - show where piece would drop
 - menu for choosing the level inside the game
 - replace image with gif
