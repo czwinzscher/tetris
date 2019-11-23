@@ -26,13 +26,14 @@ make
 ```
 
 ## Controls
-- `q`: quit the game
 - `left`: move left
 - `right`: move right
 - `down`: move down (soft drop)
 - `up`: hard drop
 - `a`: rotate left
 - `s`: rotate right
+- `p`: pause the game, press any key to continue
+- `q`: quit the game
 
 ## TODO
 - show piece statistics
