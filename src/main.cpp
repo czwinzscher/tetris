@@ -1,8 +1,8 @@
 #include "graphics.hpp"
 #include "tetris.hpp"
 
-#include <ncurses.h>
 #include <iostream>
+#include <ncurses.h>
 #include <sstream>
 
 int main(int argc, char* argv[]) {
@@ -78,6 +78,11 @@ int main(int argc, char* argv[]) {
                 m = Move::ROTATE_RIGHT;
                 break;
             case 'p':
+                erase();
+                refresh();
+                wmove(board, field_height / 2, field_width - 2);
+                wprintw(board, "PAUSED");  // NOLINT
+                wrefresh(board);
                 timeout(-1);
                 getch();
                 timeout(1);
