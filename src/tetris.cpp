@@ -71,7 +71,13 @@ bool same_piece(const location_t& l, const std::pair<int, int>& c) {
     return std::find(l.begin(), l.end(), c) != l.end();
 }
 
-int ticks_from_level(int level) { return std::max(500 - (level * 20), 20); }
+constexpr int max_ticks = 500;
+constexpr int min_ticks = 20;
+constexpr int ticks_step = 20;
+
+int ticks_from_level(int level) {
+    return std::max(max_ticks - (level * ticks_step), min_ticks);
+}
 
 Piece::Piece(Tetromino type, location_t loc, int ori)
     : tet_type(type), location(std::move(loc)), orientation(ori) {}
@@ -289,7 +295,7 @@ Piece TetrisGame::generate_piece() {
     std::uniform_int_distribution<int> distr{0, num_tetrominos - 1};
 
     int n = distr(mt);
-    Tetromino tet = static_cast<Tetromino>(n);
+    auto tet = static_cast<Tetromino>(n);
     location_t l = start_positions.at(n);
 
     return Piece(tet, l, 0);
